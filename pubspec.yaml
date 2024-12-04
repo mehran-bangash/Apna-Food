@@ -51,6 +51,7 @@ flutter:
     - assets/images/Delivery2.jpg
     - assets/images/Delivery3.jpg
     - assets/images/Wallet.png
+    - assets/images/Mehran.png
 
   fonts:
     - family: Poppins

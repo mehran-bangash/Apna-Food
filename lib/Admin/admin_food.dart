@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:apna_food/Admin/admin_home.dart';
+import 'package:apna_food/services/database_method.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
-import '../services/databaseMethod.dart';
 import '../services/widget_support.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -37,7 +37,7 @@ class _AdminFoodState extends State<AdminFood> {
         detailcontroller.text != "") {
       final addId = randomAlphaNumeric(10);
       Reference firebaseStorageref =
-      FirebaseStorage.instance.ref().child('blogImages').child(addId);
+          FirebaseStorage.instance.ref().child('blogImages').child(addId);
       final UploadTask task = firebaseStorageref.putFile(selectedImage!);
       var downloadUrl = await (await task).ref.getDownloadURL();
 
@@ -48,7 +48,8 @@ class _AdminFoodState extends State<AdminFood> {
         'Detail': detailcontroller.text,
       };
       await DatabaseMethod().addFoodItem(value!, addItemDetail).then(
-            (value) {
+        (value) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text("Food has been added SuccessFully")));
@@ -74,7 +75,11 @@ class _AdminFoodState extends State<AdminFood> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminHome(),));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AdminHome(),
+                            ));
                       },
                       child: const Icon(
                         Icons.arrow_back,
@@ -108,53 +113,53 @@ class _AdminFoodState extends State<AdminFood> {
                 ),
                 selectedImage == null
                     ? GestureDetector(
-                  onTap: () async {
-                    await getImage();
-                  },
-                  child: Center(
-                    child: Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius:
-                          const BorderRadius.all(Radius.circular(20)),
+                        onTap: () async {
+                          await getImage();
+                        },
+                        child: Center(
+                          child: Material(
+                            elevation: 5,
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: const Icon(
+                                size: 20,
+                                Icons.camera_alt_outlined,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
                         ),
-                        child: const Icon(
-                          size: 20,
-                          Icons.camera_alt_outlined,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                      )
                     : Center(
-                  child: Material(
-                    elevation: 5,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(20)),
-                      ),
-                      child: ClipRRect(
-                        borderRadius:
-                        const BorderRadius.all(Radius.circular(20)),
-                        child: Image.file(
-                          selectedImage!,
-                          fit: BoxFit.cover,
+                        child: Material(
+                          elevation: 5,
+                          borderRadius: BorderRadius.circular(20),
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              child: Image.file(
+                                selectedImage!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -266,16 +271,16 @@ class _AdminFoodState extends State<AdminFood> {
                       child: DropdownButton(
                         items: fooditems
                             .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                  fontSize: 18, color: Colors.black),
-                            )))
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                )))
                             .toList(),
                         onChanged: ((value) => setState(() {
-                          this.value = value;
-                        })),
+                              this.value = value;
+                            })),
                         dropdownColor: Colors.white,
                         hint: const Text('Select Category'),
                         icon: const Icon(

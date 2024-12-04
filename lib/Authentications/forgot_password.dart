@@ -2,9 +2,7 @@ import 'package:apna_food/Authentications/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Signup.dart';
-
-
+import 'Sign_up.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -26,10 +24,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       if (emailController.text.isNotEmpty) {
         await FirebaseAuth.instance
             .sendPasswordResetEmail(email: emailController.text.toString());
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text("Send Email SuccessFully")));
         Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
               builder: (context) => const Login(),
@@ -37,6 +37,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-not-found") {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text("Email not found")));
@@ -48,7 +49,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void initState() {
     super.initState();
     focusNode.addListener(
-          () {
+      () {
         setState(() {
           showPrefixIcon = !focusNode.hasFocus;
         });
@@ -118,9 +119,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   hintStyle: const TextStyle(fontSize: 16, color: Colors.white),
                   prefixIcon: showPrefixIcon
                       ? const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  )
+                          Icons.person,
+                          color: Colors.white,
+                        )
                       : null,
                   border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -141,7 +142,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     Colors.white,
                   ),
                   overlayColor:
-                  WidgetStateProperty.all<Color>(Colors.orangeAccent),
+                      WidgetStateProperty.all<Color>(Colors.orangeAccent),
                 ),
                 child: Text(
                   textAlign: TextAlign.end,

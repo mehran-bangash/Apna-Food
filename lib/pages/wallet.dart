@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../services/shared_prefences.dart';
 import '../services/widget_support.dart';
 
-
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
 
@@ -27,7 +26,6 @@ class _WalletState extends State<Wallet> {
 
   @override
   void initState() {
-    // TODO: implement initState
     ontheLoad();
     super.initState();
   }
@@ -178,7 +176,7 @@ class _WalletState extends State<Wallet> {
             ),
             Padding(
               padding:
-              const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                  const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               child: Container(
                 height: 50,
                 width: MediaQuery.of(context).size.width,

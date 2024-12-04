@@ -1,12 +1,10 @@
-
-import 'package:apna_food/Authentications/Signup.dart';
+import 'package:apna_food/Authentications/Sign_up.dart';
 import 'package:apna_food/Authentications/forgot_password.dart';
 import 'package:apna_food/pages/home.dart';
+import 'package:apna_food/widgets/custom_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../widgets/customTextField.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -27,27 +25,32 @@ class _LoginState extends State<Login> {
           emailController.text.isNotEmpty) {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text("Login SuccessFully")));
         Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
-              builder: (context) =>  const Home(),
+              builder: (context) => const Home(),
             ));
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text("Wrong Password")));
       } else if (e.code == 'no-email-found') {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text("No email found")));
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,8 +115,8 @@ class _LoginState extends State<Login> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20)),
                         child: Padding(
-                          padding:
-                          const EdgeInsets.only(top: 30, left: 20, right: 20),
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 20, right: 20),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,8 +180,8 @@ class _LoginState extends State<Login> {
                                   TextButton(
                                     style: ButtonStyle(
                                       overlayColor:
-                                      WidgetStateProperty.all<Color>(
-                                          Colors.orangeAccent),
+                                          WidgetStateProperty.all<Color>(
+                                              Colors.orangeAccent),
                                     ),
                                     child: Text(
                                       textAlign: TextAlign.end,
@@ -193,7 +196,7 @@ class _LoginState extends State<Login> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                             const ForgotPassword(),
+                                                const ForgotPassword(),
                                           ));
                                     },
                                   ),
@@ -209,12 +212,12 @@ class _LoginState extends State<Login> {
                                   child: ElevatedButton(
                                       style: ButtonStyle(
                                         backgroundColor:
-                                        WidgetStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                           const Color(0xFFff5730),
                                         ),
                                         overlayColor:
-                                        WidgetStateProperty.all<Color>(
-                                            Colors.orangeAccent),
+                                            WidgetStateProperty.all<Color>(
+                                                Colors.orangeAccent),
                                       ),
                                       child: Text(
                                         textAlign: TextAlign.end,
@@ -263,7 +266,7 @@ class _LoginState extends State<Login> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  const SignUp(),
+                            builder: (context) => const SignUp(),
                           ));
                     },
                     child: Text(

@@ -1,7 +1,6 @@
 
-import 'package:apna_food/Authentications/Signup.dart';
-import 'package:apna_food/Authentications/login.dart';
-import 'package:apna_food/pages/home.dart';
+import 'package:apna_food/Authentications/Sign_up.dart';
+import 'package:apna_food/pages/profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Apna Food',
-      home: Home(),
+      home: Profile(),
     );
   }
 }

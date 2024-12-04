@@ -1,17 +1,12 @@
-
 import 'package:apna_food/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:random_string/random_string.dart';
-import '../services/databaseMethod.dart';
-import '../widgets/customTextField.dart';
+import 'package:apna_food/services/database_method.dart';
+import 'package:apna_food/widgets/custom_textField.dart';
 import '../services/shared_prefences.dart';
 import 'login.dart';
-
-
-
-
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -21,9 +16,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignupState extends State<SignUp> {
-  String name = "",
-      email = "",
-      password = "";
+  String name = "", email = "", password = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -33,12 +26,8 @@ class _SignupState extends State<SignUp> {
 
   registration() async {
     try {
-      if (password
-          .toString()
-          .isNotEmpty &&
-          confirmPasswordController
-              .toString()
-              .isNotEmpty) {
+      if (password.toString().isNotEmpty &&
+          confirmPasswordController.toString().isNotEmpty) {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
 
@@ -55,6 +44,7 @@ class _SignupState extends State<SignUp> {
         await SharedPrefenceHelper().saveUserName(nameController.text);
         await SharedPrefenceHelper().saveUserEmail(emailController.text);
         await SharedPrefenceHelper().saveUserWallet('0');
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
@@ -62,6 +52,7 @@ class _SignupState extends State<SignUp> {
               style: TextStyle(fontSize: 17, color: Colors.white),
             )));
         Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
               builder: (context) => const Home(),
@@ -75,6 +66,7 @@ class _SignupState extends State<SignUp> {
         errorMessage = "Email already in use";
       }
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.orangeAccent,
         content: Text(errorMessage,
@@ -96,10 +88,7 @@ class _SignupState extends State<SignUp> {
             Stack(
               children: [
                 Container(
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height / 3.0,
+                  height: MediaQuery.of(context).size.height / 3.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       gradient: const LinearGradient(
@@ -111,10 +100,7 @@ class _SignupState extends State<SignUp> {
                           ]),
                       borderRadius: BorderRadius.vertical(
                           bottom: Radius.elliptical(
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width, 100))),
+                              MediaQuery.of(context).size.width, 100))),
                   child: Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(
@@ -146,20 +132,14 @@ class _SignupState extends State<SignUp> {
                   child: Card(
                     elevation: 5.0,
                     child: Container(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.6,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 1,
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      width: MediaQuery.of(context).size.width / 1,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 30, left: 20, right: 20),
+                        padding:
+                            const EdgeInsets.only(top: 30, left: 20, right: 20),
                         child: Form(
                           key: _formkey,
                           child: Column(
@@ -287,8 +267,7 @@ class _SignupState extends State<SignUp> {
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                            const Login(),
+                                            builder: (context) => const Login(),
                                           ));
                                     },
                                     child: Text(
@@ -322,33 +301,33 @@ class _SignupState extends State<SignUp> {
                         backgroundColor: WidgetStateProperty.all<Color>(
                           const Color(0xFFff5c30),
                         ),
-                        overlayColor: WidgetStateProperty.all<Color>(
-                            Colors.orangeAccent),
+                        overlayColor:
+                            WidgetStateProperty.all<Color>(Colors.orangeAccent),
                       ),
                       onPressed: _isLoading
                           ? null
                           : () async {
-                        if (_formkey.currentState!.validate()) {
-                          setState(() {
-                            _isLoading = true;
-                            name = nameController.text;
-                            email = emailController.text;
-                            password = passwordController.text;
-                          });
-                          await registration();
-                        }
-                      },
+                              if (_formkey.currentState!.validate()) {
+                                setState(() {
+                                  _isLoading = true;
+                                  name = nameController.text;
+                                  email = emailController.text;
+                                  password = passwordController.text;
+                                });
+                                await registration();
+                              }
+                            },
                       child: _isLoading
                           ? const CircularProgressIndicator(
-                        color: Colors.white,
-                      )
+                              color: Colors.white,
+                            )
                           : Text(
-                        "Sign Up",
-                        style: GoogleFonts.nunito(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ))),
+                              "Sign Up",
+                              style: GoogleFonts.nunito(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ))),
             ),
             const SizedBox(
               height: 50,
